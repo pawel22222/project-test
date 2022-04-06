@@ -29,9 +29,9 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
-# - story: interactive_story_1
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: work_hours
-#   - action: utter_work_hours
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: work_hours
+  - action: utter_work_hours

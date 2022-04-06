@@ -7,7 +7,7 @@ intents:
 - greet
 - mood_great
 - mood_unhappy
-# - work_hours
+- work_hours
 responses:
   utter_greet:
   - text: Hey! How are you?
@@ -29,4 +29,4 @@ session_config:
   carry_over_slots_to_new_session: true
 actions:
 - utter_greet
-# - utter_work_hours
+- utter_work_hours

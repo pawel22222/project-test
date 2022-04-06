@@ -82,9 +82,9 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-# - intent: work_hours
-#   examples: |
-#     - what are your working hours?
-#     - when you start work?
-#     - when you finish work
-#     - when you end work?
+- intent: work_hours
+  examples: |
+    - what are your working hours?
+    - when you start work?
+    - when you finish work
+    - when you end work?
