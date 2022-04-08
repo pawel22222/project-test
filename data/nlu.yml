@@ -88,3 +88,29 @@ nlu:
     - when you start work?
     - when you finish work
     - when you end work?
+- intent: buy_pizza
+  examples: |
+    - i'd like to buy a pizza
+    - i want a pizza
+    - can i buy a pizza?
+- intent: inform
+  examples: |
+    - i'd like a [large](pizza_size) pizza
+    - i want to order a [xl](pizza_size) [hawai](pizza_type) pizza
+    - [medium](pizza_size) pizza
+    - [xl](pizza_size)
+    - [small](pizza_size)
+    - [s](pizza_size)
+    - [pepperoni](pizza_type)
+    - give me a [mozerella](pizza_type) pizza
+    - [hawaii](pizza_type) pizza
+    - [smol](pizza_size)
+    - [hawaii](pizza_type)
+    - i want a [large](pizza_size) pizza
+    - [mozzarella](pizza_type)
+    - [hawai](pizza_type)
+    - [veggie](pizza_type)
+    - [fungi](pizza_type)
+    - i want a [large](pizza_size) pizza
+    - [vegggie](pizza_type)
+    - [veggie](pizza_type)
