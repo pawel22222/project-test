@@ -32,3 +32,4 @@ rules:
     - requested_slot: null
   - action: utter_submit
   - action: utter_pizza_slots
+  - action: reset_slots_pizza_form

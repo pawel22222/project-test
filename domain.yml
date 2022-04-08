@@ -69,3 +69,4 @@ actions:
 - utter_pizza_slots
 - utter_submit
 - validate_simple_pizza_form
+- reset_slots_pizza_form
