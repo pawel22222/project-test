@@ -114,3 +114,26 @@ nlu:
     - i want a [large](pizza_size) pizza
     - [vegggie](pizza_type)
     - [veggie](pizza_type)
+- intent: give_time
+  examples: |
+    - can you tell me what time is it
+    - tell me the time
+    - what time is it
+    - give time
+- intent: name_entry
+  examples: |
+    - my name is [Pawel](name)
+    - i am [Michal](name)
+- intent: name_entry
+  examples: |
+    - my name is [Pawel](name)
+    - i am [Michal](name)
+- intent: buy_hamburger
+  examples: |
+    - i'd like to buy a hamburger
+    - i want a hamburger
+    - can i buy a hamburger?
+- intent: hungry
+  examples: |
+    - i am hungry
+    - i want to eat

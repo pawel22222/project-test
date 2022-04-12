@@ -32,4 +32,25 @@ rules:
     - requested_slot: null
   - action: utter_submit
   - action: utter_pizza_slots
-  - action: reset_slots_pizza_form
+  - action: action_reset_slots
+
+- rule: Say current time
+  steps:
+   - intent: give_time
+   - action: action_show_time
+
+- rule: Greet with name
+  steps:
+   - intent: name_entry
+   - action: utter_greet_with_name
+
+- rule: buy hamburger
+  steps:
+  - intent: buy_hamburger
+  - action: utter_buy_hamburger
+
+- rule: hungry
+  steps:
+  - intent: hungry
+  - action: utter_ask_pizza
+

@@ -14,9 +14,14 @@ intents:
 - buy_pizza
 - inform
 - request_pizza_form
+- give_time
+- name_entry
+- buy_hamburger
+- hungry
 entities:
 - pizza_size
 - pizza_type
+- name
 slots:
   pizza_size:
     type: text
@@ -30,6 +35,12 @@ slots:
     mappings:
     - type: from_entity
       entity: pizza_type
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: name
 forms:
   simple_pizza_form:
     required_slots:
@@ -61,6 +72,17 @@ responses:
   - text: What size would you like your pizza to be?
   utter_ask_pizza_type:
   - text: What kind of pizza would you like to buy?
+  utter_greet_with_name:
+  - text: Nice to meet you {name}
+  utter_buy_hamburger:
+  - text: Unfortunately, we dont have a hamburger :(
+  utter_ask_pizza:
+  - text: Do you like a pizza?
+    buttons:
+    - title: "yes"
+      payload: "i want a pizza"
+    - title: "no i want a hamburber"
+      payload: "i want a hamburger"
 actions:
 - utter_ask_continue
 - utter_goodbye
@@ -69,4 +91,5 @@ actions:
 - utter_pizza_slots
 - utter_submit
 - validate_simple_pizza_form
-- reset_slots_pizza_form
+- action_show_time
+- action_reset_slots
