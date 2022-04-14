@@ -1,0 +1,24 @@
+version: "3.1"
+nlu:
+- intent: booking
+  examples: |
+    - i would like to booking seat
+    - i want to reserve a table
+    - book place
+- intent: dishes
+  examples: |
+    - i like a [soup](dishes)
+    - [sushi](dishes)
+    - [hamburger](dishes)
+    - [sushi](dishes)
+    - i want [pizza](dishes)
+    - i want [kebab](dishes)
+- intent: num_people
+  examples: |
+    - i need [1](num_people)
+    - i need [2](num_people)
+    - i need [3](num_people)
+    - i need [4](num_people)
+    - i need [5](num_people)
+    - i need [6](num_people)
+  

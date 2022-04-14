@@ -54,3 +54,19 @@ rules:
   - intent: hungry
   - action: utter_ask_pizza
 
+- rule: Activate booking Form
+  steps:
+  - intent: booking
+  - action: utter_booking
+  - action: restaurant_booking_form
+  - active_loop: restaurant_booking_form
+
+- rule: Submit booking Form
+  condition:
+  - active_loop: restaurant_booking_form
+  steps:
+  - action: restaurant_booking_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: submit_booking_form

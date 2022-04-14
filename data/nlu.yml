@@ -35,6 +35,8 @@ nlu:
     - of course
     - that sounds good
     - correct
+    - sure
+    - ok
 - intent: deny
   examples: |
     - no
@@ -123,11 +125,9 @@ nlu:
 - intent: name_entry
   examples: |
     - my name is [Pawel](name)
+    - my name is [Pawel sokolowski](name)
     - i am [Michal](name)
-- intent: name_entry
-  examples: |
-    - my name is [Pawel](name)
-    - i am [Michal](name)
+    - i am [Michal kowalski](name)
 - intent: buy_hamburger
   examples: |
     - i'd like to buy a hamburger

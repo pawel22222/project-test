@@ -18,10 +18,15 @@ intents:
 - name_entry
 - buy_hamburger
 - hungry
+- booking
+- dishes
+- num_people
 entities:
 - pizza_size
 - pizza_type
 - name
+- dishes
+- num_people
 slots:
   pizza_size:
     type: text
@@ -41,11 +46,38 @@ slots:
     mappings:
     - type: from_entity
       entity: name
+  dishes:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: dishes
+  num_people:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: num_people
+  outdoor_seating:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - type: from_intent
+      intent: affirm
+      value: true
+    - type: from_intent
+      intent: deny
+      value: false
 forms:
   simple_pizza_form:
     required_slots:
       - pizza_size
       - pizza_type
+  restaurant_booking_form:
+    required_slots:
+      - dishes
+      - num_people
+      - outdoor_seating
 responses:
   utter_greet:
   - text: Hey! How are you?
@@ -69,7 +101,7 @@ responses:
   utter_ask_continue:
   - text: Are you sure you want to stop the form?
   utter_ask_pizza_size:
-  - text: What size would you like your pizza to be?
+  - text: What size would you like your pizza to buy?
   utter_ask_pizza_type:
   - text: What kind of pizza would you like to buy?
   utter_greet_with_name:
@@ -83,6 +115,12 @@ responses:
       payload: "i want a pizza"
     - title: "no i want a hamburber"
       payload: "i want a hamburger"
+  utter_booking:
+  - text: "OK. What kind of dishes do you like?"
+  utter_ask_num_people:
+  - text: "for how many people to book a table?"
+  utter_ask_outdoor_seating:
+  - text: "could there be a table outside?"
 actions:
 - utter_ask_continue
 - utter_goodbye
@@ -93,3 +131,5 @@ actions:
 - validate_simple_pizza_form
 - action_show_time
 - action_reset_slots
+- validate_restaurant_booking_form
+- submit_booking_form
