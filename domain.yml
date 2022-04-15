@@ -11,16 +11,11 @@ intents:
 - mood_great
 - mood_unhappy
 - work_hours
-- buy_pizza
-- inform
-- request_pizza_form
 - give_time
 - name_entry
-- buy_hamburger
-- hungry
 - booking
-- dishes
-- num_people
+- inform_dishes
+- inform_num_people
 entities:
 - pizza_size
 - pizza_type
@@ -28,18 +23,6 @@ entities:
 - dishes
 - num_people
 slots:
-  pizza_size:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: pizza_size
-  pizza_type:
-    type: text
-    influence_conversation: true
-    mappings:
-    - type: from_entity
-      entity: pizza_type
   name:
     type: text
     influence_conversation: true
@@ -47,11 +30,17 @@ slots:
     - type: from_entity
       entity: name
   dishes:
-    type: text
+    type: list
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: dishes
+    - type: categorical
+      values: 
+        - soup
+        - pizza
+        - hamburger
+        - kebab
+        - sushi
+        - cola
   num_people:
     type: text
     influence_conversation: true
@@ -69,10 +58,6 @@ slots:
       intent: deny
       value: false
 forms:
-  simple_pizza_form:
-    required_slots:
-      - pizza_size
-      - pizza_type
   restaurant_booking_form:
     required_slots:
       - dishes
@@ -94,27 +79,8 @@ responses:
   - text: I am a bot, powered by Rasa.
   utter_work_hours:
   - text: I'm work between 8-16.
-  utter_submit:
-  - text: I will now order a pizza for you!
-  utter_pizza_slots:
-  - text: I will order a {pizza_size} {pizza_type} pizza.
-  utter_ask_continue:
-  - text: Are you sure you want to stop the form?
-  utter_ask_pizza_size:
-  - text: What size would you like your pizza to buy?
-  utter_ask_pizza_type:
-  - text: What kind of pizza would you like to buy?
   utter_greet_with_name:
   - text: Nice to meet you {name}
-  utter_buy_hamburger:
-  - text: Unfortunately, we dont have a hamburger :(
-  utter_ask_pizza:
-  - text: Do you like a pizza?
-    buttons:
-    - title: "yes"
-      payload: "i want a pizza"
-    - title: "no i want a hamburber"
-      payload: "i want a hamburger"
   utter_booking:
   - text: "OK. What kind of dishes do you like?"
   utter_ask_num_people:
@@ -122,14 +88,9 @@ responses:
   utter_ask_outdoor_seating:
   - text: "could there be a table outside?"
 actions:
-- utter_ask_continue
 - utter_goodbye
 - utter_greet
 - utter_work_hours
-- utter_pizza_slots
-- utter_submit
-- validate_simple_pizza_form
 - action_show_time
-- action_reset_slots
 - validate_restaurant_booking_form
 - submit_booking_form

@@ -5,15 +5,18 @@ nlu:
     - i would like to booking seat
     - i want to reserve a table
     - book place
-- intent: dishes
+- intent: inform_dishes
   examples: |
-    - i like a [soup](dishes)
+    # - i would like a [dishes_list](dishes)
+    # - i want [dishes_list](dishes)
+    # - [dishes_list](dishes)
     - [sushi](dishes)
+    - [soup](dishes)
+    - [pizza](dishes)
     - [hamburger](dishes)
-    - [sushi](dishes)
-    - i want [pizza](dishes)
-    - i want [kebab](dishes)
-- intent: num_people
+    - [cola](dishes)
+    - [kebab](dishes)
+- intent: inform_num_people
   examples: |
     - i need [1](num_people)
     - i need [2](num_people)

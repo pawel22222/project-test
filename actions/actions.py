@@ -2,10 +2,9 @@ from typing import Text, List, Any, Dict
 import datetime as dt
 
 from rasa_sdk import Tracker, FormValidationAction, Action
-from rasa_sdk.events import EventType, SlotSet
+from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
-from sqlalchemy import null
 
 ALLOWED_PIZZA_SIZES = ["small", "medium", "large",
                        "extra-large", "extra large", "s", "m", "l", "xl"]
@@ -61,19 +60,6 @@ class ShowTime(Action):
         return []
 
 
-# Not working
-class ResetSlots(Action):
-    def name(self) -> Text:
-        return "action_reset_slots"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        SlotSet("pizza_size", null)
-        return []
-
-
 class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_restaurant_booking_form"
@@ -85,13 +71,20 @@ class ValidateBookingForm(FormValidationAction):
         tracker: Tracker,
         domain: Dict[Text, Any]
     ) -> Dict[Text, Any]:
-        if slot_value.lower() not in ALLOWED_DISHES:
-            dispatcher.utter_message(
-                text=f"I don't recognize that dishes. We serve {'/'.join(ALLOWED_DISHES)}.")
-            return {"dishes": None}
-        dispatcher.utter_message(
-            text=f"OK! You want to have a {slot_value} dishes.")
-        return {"dishes": slot_value}
+        # if slot_value.lower() not in ALLOWED_DISHES:
+        #     dispatcher.utter_message(
+        #         text=f"I don't recognize that dishes. We serve {'/'.join(ALLOWED_DISHES)}.")
+        #     return {"dishes": None}
+        if slot_value:
+            # for i, dish in slot_value:
+            #     dispatcher.utter_message(text=f"Dish {i}: {dish}")
+
+            dispatcher.utter_message(text=f"Dishes: {slot_value}")
+                # text=f"OK! You want to have a {slot_value} dishes.")
+            return {"dishes": slot_value}
+        else:
+            dispatcher.utter_message(text="Upss... can you repeat?")
+            return {'dishes': None}
 
     def validate_num_people(
         self,
