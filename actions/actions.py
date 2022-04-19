@@ -71,20 +71,15 @@ class ValidateBookingForm(FormValidationAction):
         tracker: Tracker,
         domain: Dict[Text, Any]
     ) -> Dict[Text, Any]:
-        # if slot_value.lower() not in ALLOWED_DISHES:
-        #     dispatcher.utter_message(
-        #         text=f"I don't recognize that dishes. We serve {'/'.join(ALLOWED_DISHES)}.")
-        #     return {"dishes": None}
-        if slot_value:
-            # for i, dish in slot_value:
-            #     dispatcher.utter_message(text=f"Dish {i}: {dish}")
+        for dish in slot_value:
+            if dish.lower() not in ALLOWED_DISHES:
+                dispatcher.utter_message(
+                text=f"I don't recognize that dishes. We serve {'/'.join(ALLOWED_DISHES)}.")
+                return {"dishes": None}
 
-            dispatcher.utter_message(text=f"Dishes: {slot_value}")
-                # text=f"OK! You want to have a {slot_value} dishes.")
-            return {"dishes": slot_value}
-        else:
-            dispatcher.utter_message(text="Upss... can you repeat?")
-            return {'dishes': None}
+        dispatcher.utter_message(text=f"Dishes: {slot_value}")
+        return {"dishes": slot_value}
+
 
     def validate_num_people(
         self,
