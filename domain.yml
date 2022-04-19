@@ -15,7 +15,7 @@ intents:
   - work_hours
   - give_time
   - name_entry
-  - booking
+  - booking_table
   - inform_dishes
   - inform_num_people
 
@@ -57,7 +57,7 @@ slots:
       value: false
 
 forms:
-  restaurant_booking_form:
+  booking_table_form:
     required_slots:
       - dishes
       - num_people
@@ -81,7 +81,7 @@ responses:
   - text: I'm work between 8-16.
   utter_greet_with_name:
   - text: Nice to meet you {name}
-  utter_booking:
+  utter_booking_table:
   - text: "OK. What kind of dishes do you like?"
   utter_ask_num_people:
   - text: "for how many people to book a table?"
@@ -93,5 +93,5 @@ actions:
 - utter_greet
 - utter_work_hours
 - action_show_time
-- validate_restaurant_booking_form
-- submit_booking_form
+- validate_booking_table_form
+- submit_booking_table_form

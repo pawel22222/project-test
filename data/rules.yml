@@ -26,19 +26,19 @@ rules:
    - intent: name_entry
    - action: utter_greet_with_name
 
-- rule: Activate booking Form
+- rule: Activate booking table Form
   steps:
-  - intent: booking
-  - action: utter_booking
-  - action: restaurant_booking_form
-  - active_loop: restaurant_booking_form
+  - intent: booking_table
+  - action: utter_booking_table
+  - action: booking_table_form
+  - active_loop: booking_table_form
 
-- rule: Submit booking Form
+- rule: Submit booking table Form
   condition:
-  - active_loop: restaurant_booking_form
+  - active_loop: booking_table_form
   steps:
-  - action: restaurant_booking_form
+  - action: booking_table_form
   - active_loop: null
   - slot_was_set:
     - requested_slot: null
-  - action: submit_booking_form
+  - action: submit_booking_table_form

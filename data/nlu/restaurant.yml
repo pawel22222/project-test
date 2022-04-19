@@ -20,11 +20,12 @@ nlu:
     - sandwich
     - cheseeburger  
   
-- intent: booking
+- intent: booking_table
   examples: |
     - i would like to booking seat
     - i want to reserve a table
     - book place
+    - book table
 - intent: inform_dishes
   examples: |
     - i would like a [soup](dishes)
