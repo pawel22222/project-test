@@ -5,26 +5,26 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
-  - affirm
-  - bot_challenge
-  - deny
-  - goodbye
-  - greet
-  - mood_great
-  - mood_unhappy
-  - work_hours
-  - give_time
-  - name_entry
-  - booking_table
-  - inform_dishes
-  - inform_num_people
+- affirm
+- booking_table
+- bot_challenge
+- deny
+- give_time
+- goodbye
+- greet
+- inform_dishes
+- inform_num_people
+- mood_great
+- mood_unhappy
+- name_entry
+- work_hours
 
 entities:
-  - pizza_size
-  - pizza_type
-  - name
-  - dishes
-  - num_people
+- num_people
+- dishes
+- pizza_size
+- pizza_type
+- name
 
 slots:
   name:
@@ -59,9 +59,9 @@ slots:
 forms:
   booking_table_form:
     required_slots:
-      - dishes
-      - num_people
-      - outdoor_seating
+    - dishes
+    - num_people
+    - outdoor_seating
 
 responses:
   utter_greet:
@@ -82,16 +82,17 @@ responses:
   utter_greet_with_name:
   - text: Nice to meet you {name}
   utter_booking_table:
-  - text: "OK. What kind of dishes do you like?"
+  - text: OK. What kind of dishes do you like?
   utter_ask_num_people:
-  - text: "for how many people to book a table?"
+  - text: for how many people to book a table?
   utter_ask_outdoor_seating:
-  - text: "could there be a table outside?"
+  - text: could there be a table outside?
 
 actions:
+- action_show_time
+- submit_booking_table_form
+- utter_booking_table
 - utter_goodbye
 - utter_greet
 - utter_work_hours
-- action_show_time
 - validate_booking_table_form
-- submit_booking_table_form

@@ -28,14 +28,44 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
-- story: interactive_story_1
+- story: work hours
   steps:
   - intent: greet
   - action: utter_greet
   - intent: work_hours
   - action: utter_work_hours
 
-# - story: booking table
-#   steps:
-#   - intent: booking_table
-#   - action: utter_booking_table
+- story: restaurant booking table
+  steps:
+  - intent: booking_table
+  - action: utter_booking_table
+  - action: booking_table_form
+  - active_loop: booking_table_form
+  - slot_was_set:
+    - requested_slot: dishes
+  - slot_was_set:
+    - dishes:
+      - pizza
+      - soup
+      - sushi
+  - slot_was_set:
+    - dishes:
+      - pizza
+      - soup
+      - sushi
+  - slot_was_set:
+    - requested_slot: num_people
+  - slot_was_set:
+    - num_people: '12'
+  - slot_was_set:
+    - num_people: '12'
+  - slot_was_set:
+    - requested_slot: outdoor_seating
+  - slot_was_set:
+    - outdoor_seating: false
+  - slot_was_set:
+    - outdoor_seating: false
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: submit_booking_table_form

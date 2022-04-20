@@ -36,6 +36,7 @@ nlu:
     - [kebab](dishes), [soup](dishes)
     - [pizza](dishes) and [sushi](dishes)
     - [hamburger](dishes), [cola](dishes) and [kebab](dishes)
+    - [pizza](dishes) [soup](dishes) and [sushi](dishes)
 - intent: inform_num_people
   examples: |
     - i need [1](num_people)
@@ -44,4 +45,4 @@ nlu:
     - i need [4](num_people)
     - i need [5](num_people)
     - i need [6](num_people)
-  
+    - [12](num_people)
