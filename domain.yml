@@ -7,15 +7,12 @@ session_config:
 intents:
 - affirm
 - booking_table
-- bot_challenge
 - deny
 - give_time
 - goodbye
 - greet
 - inform_dishes
 - inform_num_people
-- mood_great
-- mood_unhappy
 - name_entry
 - work_hours
 
@@ -66,21 +63,12 @@ forms:
 responses:
   utter_greet:
   - text: Hey! How are you?
-  utter_cheer_up:
-  - text: 'Here is something to cheer you up:'
-    image: https://i.imgur.com/nGF1K8f.jpg
-  utter_did_that_help:
-  - text: Did that help you?
-  utter_happy:
-  - text: Great, carry on!
-  utter_goodbye:
-  - text: Bye
-  utter_iamabot:
-  - text: I am a bot, powered by Rasa.
-  utter_work_hours:
-  - text: I'm work between 8-16.
   utter_greet_with_name:
   - text: Nice to meet you {name}
+  utter_goodbye:
+  - text: Bye
+  utter_work_hours:
+  - text: I'm work between 8-16.
   utter_booking_table:
   - text: OK. What kind of dishes do you like?
   utter_ask_num_people:
