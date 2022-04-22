@@ -15,6 +15,12 @@ intents:
 - inform_num_people
 - name_entry
 - work_hours
+- inform_task
+- inform_reason
+- prices
+- time_to_cancel
+- available_dates
+- delivery
 
 entities:
 - num_people
@@ -22,36 +28,87 @@ entities:
 - pizza_size
 - pizza_type
 - name
+- task
+- reason
 
 slots:
   name:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: name
+      - type: from_entity
+        entity: name
   dishes:
     type: list
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: dishes
+      - type: from_entity
+        entity: dishes
   num_people:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: num_people
+      - type: from_entity
+        entity: num_people
   outdoor_seating:
     type: bool
     influence_conversation: true
     mappings:
-    - type: from_intent
-      intent: affirm
-      value: true
-    - type: from_intent
-      intent: deny
-      value: false
+      - type: from_intent
+        intent: affirm
+        value: true
+      - type: from_intent
+        intent: deny
+        value: false
+  task: 
+    type: categorical
+    influence_conversation: false
+    values:
+      - hall_renting
+      - cancellation_hall_renting
+      - daily_catering
+    mappings: 
+      - type: from_entity
+        entity: task
+  reason: 
+    type: categorical
+    influence_conversation: false
+    values:
+      - wedding
+      - baptism
+      - birthday
+      - fault_of_customer
+      - our_fault
+      - premium
+      - basic
+    mappings: 
+      - type: from_entity
+        entity: reason
+  form_trigger_intent:
+    type: categorical
+    influence_conversation: false
+    values:
+      - prices
+      - available_dates
+      - time_to_cancel
+      - delivery
+      - choice_meals
+    mappings:
+      - type: from_intent
+        value: prices
+        intent: prices
+      - type: from_intent
+        value: available_dates
+        intent: available_dates
+      - type: from_intent
+        value: time_to_cancel
+        intent: time_to_cancel
+      - type: from_intent
+        value: delivery
+        intent: delivery
+      - type: from_intent
+        value: choice_meals
+        intent: choice_meals
 
 forms:
   booking_table_form:
@@ -59,8 +116,15 @@ forms:
     - dishes
     - num_people
     - outdoor_seating
-
+  task_form:
+    required_slots:
+      - task
+      - reason
+      - form_trigger_intent
+      
 responses:
+  utter_default:
+  - text: Sorry, i do not understand
   utter_greet:
   - text: Hey! How are you?
   utter_greet_with_name:
@@ -75,6 +139,49 @@ responses:
   - text: for how many people to book a table?
   utter_ask_outdoor_seating:
   - text: could there be a table outside?
+  utter_ask_task:
+    - condition:
+        - type: slot
+          name: reason
+          value: prices
+      text: about the cost what do you ask?
+    - text: How can i help you?
+  utter_ask_reason:
+    - condition:
+        - type: slot
+          name: task
+          value: hall_renting
+      text: "We can organize:"
+      buttons:
+        - title: wedding
+          payload: /inform_reason{{reason:"wedding"}}
+        - title: baptism
+          payload: /inform_reason{{reason:"baptism"}}
+        - title: birthday
+          payload: /inform_reason{{reason:"birthday"}}
+    - condition:
+        - type: slot
+          name: task
+          value: cancellation_hall_renting
+      text: "whose fault do you want to cancel your rental?"
+      buttons:
+        - title: fault_of_customer
+          payload: /inform_reason{{reason:"fault_of_customer"}}
+        - title: our_fault
+          payload: /inform_reason{{reason:"our_fault"}}
+    - condition:
+        - type: slot
+          name: task
+          value: daily_catering
+      text: "which type of catering do you choose?"
+      buttons:
+        - title: premium
+          payload: /inform_reason{{reason:"premium"}}
+        - title: basic
+          payload: /inform_reason{{reason:"basic"}}
+    - text: How can i help you?
+  # utter_submit: 
+  #   -
 
 actions:
 - action_show_time

@@ -65,3 +65,84 @@ nlu:
     - my name is [Pawel sokolowski](name)
     - i am [Michal](name)
     - i am [Michal kowalski](name)
+- intent: inform_task
+  examples: |
+    - [rent hall]{"entity": "task", "value": "hall_renting"}
+    - [rent]{"entity": "task", "value": "hall_renting"}
+    - [make party]{"entity": "task", "value": "hall_renting"}
+    - [rent hall]{"entity": "task", "value": "hall_renting"} for a [wedding]{"entity": "reason", "value": "wedding"}
+    - [rent]{"entity": "task", "value": "hall_renting"} [wedding ]{"entity": "reason", "value": "wedding"} hall
+    - make [birthday]{"entity": "reason", "value": "birthday"} [party]{"entity": "task", "value": "hall_renting"}
+    # - make a [birthday]{"entity": "reason", "value": "birthday"}{"entity": "task", "value": "hall_renting"}
+
+    - [cancel]{"entity": "task", "value": "cancellation_hall_renting"}
+    - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"}
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"}
+    - [cancel]{"entity": "task", "value": "cancellation_hall_renting"} party
+    - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"} [wedding]{"entity": "reason", "value": "wedding"}
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [birthday]{"entity": "reason", "value": "birthday"}
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [baptism]{"entity": "reason", "value": "baptism"}
+
+    - [catering]{"entity": "task", "value": "daily_catering"}
+    - [daily catering]{"entity": "task", "value": "daily_catering"}
+- intent: inform_reason
+  examples: |
+    - [wedding]{"entity": "reason", "value": "wedding"}
+    - [birthday]{"entity": "reason", "value": "birthday"}
+    - [baptism]{"entity": "reason", "value": "baptism"}
+
+    - [my fault]{"entity": "reason", "value": "fault_of_customer"}
+    - [change date]{"entity": "reason", "value": "fault_of_customer"}
+    - [your fault]{"entity": "reason", "value": "our_fault"}
+    - [error in contract]{"entity": "reason", "value": "our_fault"}
+
+    - [premium]{"entity": "reason", "value": "premium"}
+    - [basic]{"entity": "reason", "value": "basic"}
+
+#       - prices
+#       - available_dates
+#       - time_to_cancel
+#       - delivery
+#       - choice_meals
+
+# - intent: prices
+#   examples: |
+#     - cost
+#     - price
+#     - costs
+#     - prices
+# - intent: available_dates
+#   examples: |
+#     - available dates
+#     - date
+#     - dates
+#     - free dates
+# - intent: time_to_cancel
+#   examples: |
+#     - time to cancel
+#     - time to cancellation
+#     - cancellation term
+# - intent: delivery
+#   examples: |
+#     - delivery
+#     - 
+#     - 
+
+- synonym: hall_renting
+  examples: |
+    - make a party
+    - make party
+    - do party
+    - create party
+    - organize party
+- synonym: cancellation_hall_renting
+  examples: |
+    - cancel a party
+    - cancellation party
+    - canceling party
+- synonym: daily_catering
+  examples: |
+    - daily catering
+    - daily food
+    - daily dinner
+
