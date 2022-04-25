@@ -222,4 +222,4 @@ actions:
 - utter_work_hours
 - validate_booking_table_form
 - utter_submit
-- utter_trigger_buttons
+- display_trigger_buttons

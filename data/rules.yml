@@ -51,5 +51,5 @@ rules:
 - rule: Dialog cz 2
   steps:
    - intent: inform_reason
-   - action: utter_trigger_buttons
-  #  - action: utter_submit
+   - action: display_trigger_buttons
+   - action: utter_submit
