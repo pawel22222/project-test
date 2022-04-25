@@ -16,6 +16,11 @@ rules:
    - intent: give_time
    - action: action_show_time
 
+- rule: greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
 - rule: Greet with name
   steps:
    - intent: name_entry
@@ -37,3 +42,14 @@ rules:
   - slot_was_set:
     - requested_slot: null
   - action: submit_booking_table_form
+
+- rule: Dialog cz 1
+  steps:
+   - intent: inform_task
+   - action: utter_ask_reason
+
+- rule: Dialog cz 2
+  steps:
+   - intent: inform_reason
+   - action: utter_trigger_buttons
+  #  - action: utter_submit

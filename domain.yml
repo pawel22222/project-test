@@ -21,6 +21,7 @@ intents:
 - time_to_cancel
 - available_dates
 - delivery
+- choice_meals
 
 entities:
 - num_people
@@ -94,19 +95,19 @@ slots:
       - delivery
       - choice_meals
     mappings:
-      - type: from_intent
+      - type: from_trigger_intent
         value: prices
         intent: prices
-      - type: from_intent
+      - type: from_trigger_intent
         value: available_dates
         intent: available_dates
-      - type: from_intent
+      - type: from_trigger_intent
         value: time_to_cancel
         intent: time_to_cancel
-      - type: from_intent
+      - type: from_trigger_intent
         value: delivery
         intent: delivery
-      - type: from_intent
+      - type: from_trigger_intent
         value: choice_meals
         intent: choice_meals
 
@@ -123,8 +124,8 @@ forms:
       - form_trigger_intent
       
 responses:
-  utter_default:
-  - text: Sorry, i do not understand
+  # utter_default:
+  # - text: Sorry, i do not understand
   utter_greet:
   - text: Hey! How are you?
   utter_greet_with_name:
@@ -146,6 +147,13 @@ responses:
           value: prices
       text: about the cost what do you ask?
     - text: How can i help you?
+      buttons:
+        - title: rent hall
+          payload: /inform_task{{"task":"hall_renting"}}
+        - title: cancellation hall renting
+          payload: /inform_task{{"task":"cancellation_hall_renting"}}
+        - title: daily catering
+          payload: /inform_task{{"task":"daily_catering"}}
   utter_ask_reason:
     - condition:
         - type: slot
@@ -154,11 +162,11 @@ responses:
       text: "We can organize:"
       buttons:
         - title: wedding
-          payload: /inform_reason{{reason:"wedding"}}
+          payload: /inform_reason{{"reason":"wedding"}}
         - title: baptism
-          payload: /inform_reason{{reason:"baptism"}}
+          payload: /inform_reason{{"reason":"baptism"}}
         - title: birthday
-          payload: /inform_reason{{reason:"birthday"}}
+          payload: /inform_reason{{"reason":"birthday"}}
     - condition:
         - type: slot
           name: task
@@ -166,9 +174,9 @@ responses:
       text: "whose fault do you want to cancel your rental?"
       buttons:
         - title: fault_of_customer
-          payload: /inform_reason{{reason:"fault_of_customer"}}
+          payload: /inform_reason{{"reason":"fault_of_customer"}}
         - title: our_fault
-          payload: /inform_reason{{reason:"our_fault"}}
+          payload: /inform_reason{{"reason":"our_fault"}}
     - condition:
         - type: slot
           name: task
@@ -176,12 +184,34 @@ responses:
       text: "which type of catering do you choose?"
       buttons:
         - title: premium
-          payload: /inform_reason{{reason:"premium"}}
+          payload: /inform_reason{{"reason":"premium"}}
         - title: basic
-          payload: /inform_reason{{reason:"basic"}}
+          payload: /inform_reason{{"reason":"basic"}}
     - text: How can i help you?
-  # utter_submit: 
-  #   -
+  utter_submit: 
+    - condition:
+        - type: slot
+          name: form_trigger_intent
+          value: "prices"
+        - type: slot
+          name: task
+          value: "hall_renting"
+        - type: slot
+          name: reason
+          value: "wedding"
+      text: "price is 10000$"
+    - condition:
+        - type: slot
+          name: form_trigger_intent
+          value: "available_dates"
+        - type: slot
+          name: task
+          value: "hall_renting"
+        - type: slot
+          name: reason
+          value: "wedding"
+      text: "We have free date after two years."
+
 
 actions:
 - action_show_time
@@ -191,3 +221,5 @@ actions:
 - utter_greet
 - utter_work_hours
 - validate_booking_table_form
+- utter_submit
+- utter_trigger_buttons

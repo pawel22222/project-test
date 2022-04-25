@@ -73,3 +73,22 @@ class SubmitBookingTableForm(Action):
 
         dispatcher.utter_message(
             text=f"OK! You want {table_type} table for {tracker.get_slot('num_people')} people and you ordered {dishes}")
+
+
+class UtterTriggerButtons(Action):
+    def name(self) -> Text:
+        return "utter_trigger_buttons"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ):
+        dispatcher.utter_message(text="what you want to know?")
+        dispatcher.utter_message(buttons=[
+            {"payload": "/prices", "title": "about prices"},
+            {"payload": "/available_dates", "title": "about available dates"}
+        ])
+        dispatcher.utter_message(text="czy czeka?")
+        # dispatcher.utter_message(response="utter_submit")
