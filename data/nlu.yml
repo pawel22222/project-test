@@ -1,5 +1,4 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
@@ -70,72 +69,50 @@ nlu:
     - [rent hall]{"entity": "task", "value": "hall_renting"}
     - [rent]{"entity": "task", "value": "hall_renting"}
     - [make party]{"entity": "task", "value": "hall_renting"}
-    - [rent hall]{"entity": "task", "value": "hall_renting"} for a [wedding]{"entity": "reason", "value": "wedding"}
-    - [rent]{"entity": "task", "value": "hall_renting"} [wedding]{"entity": "reason", "value": "wedding"} hall
-    - make [birthday]{"entity": "reason", "value": "birthday"} [party]{"entity": "task", "value": "hall_renting"}
-    # - make a [birthday]{"entity": "reason", "value": "birthday"}{"entity": "task", "value": "hall_renting"}
-
+    - [rent hall]{"entity": "task", "value": "hall_renting"} for a [wedding](reason)
+    - [rent]{"entity": "task", "value": "hall_renting"} [wedding](reason) hall
+    - make [birthday](reason) [party]{"entity": "task", "value": "hall_renting"}
     - [cancel]{"entity": "task", "value": "cancellation_hall_renting"}
     - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"}
     - [canceling]{"entity": "task", "value": "cancellation_hall_renting"}
     - [cancel]{"entity": "task", "value": "cancellation_hall_renting"} party
-    - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"} [wedding]{"entity": "reason", "value": "wedding"}
-    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [birthday]{"entity": "reason", "value": "birthday"}
-    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [baptism]{"entity": "reason", "value": "baptism"}
-
+    - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"} [wedding](reason)
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [birthday](reason)
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [baptism](reason)
     - [catering]{"entity": "task", "value": "daily_catering"}
     - [daily catering]{"entity": "task", "value": "daily_catering"}
+    - [rent hall]{"entity": "task", "value": "hall_renting"}
 - intent: inform_reason
   examples: |
-    - [wedding]{"entity": "reason", "value": "wedding"}
-    - [birthday]{"entity": "reason", "value": "birthday"}
-    - [baptism]{"entity": "reason", "value": "baptism"}
+    - [wedding](reason)
+    - [birthday](reason)
+    - [baptism](reason)
     - [my fault]{"entity": "reason", "value": "fault_of_customer"}
     - [change date]{"entity": "reason", "value": "fault_of_customer"}
     - [your fault]{"entity": "reason", "value": "our_fault"}
     - [error in contract]{"entity": "reason", "value": "our_fault"}
-    - [premium]{"entity": "reason", "value": "premium"}
-    - [basic]{"entity": "reason", "value": "basic"}
-
-# - intent: prices
+    - [premium](reason)
+    - [basic](reason)
+- synonym: hall_renting
+  examples: |
+    - rent hall
+    - rent
+    - make party
+    - party
+- synonym: cancellation_hall_renting
+  examples: |
+    - cancel
+    - cancellation
+    - canceling
+- synonym: daily_catering
+  examples: |
+    - catering
+    - daily catering
+# - synonym: fault_of_customer
 #   examples: |
-#     - cost
-#     - price
-#     - costs
-#     - prices
-# - intent: available_dates
+#     - my fault
+#     - change date
+# - synonym: our_fault
 #   examples: |
-#     - available dates
-#     - date
-#     - dates
-#     - free dates
-# - intent: time_to_cancel
-#   examples: |
-#     - time to cancel
-#     - time to cancellation
-#     - cancellation term
-# - intent: delivery
-#   examples: |
-#     - delivery
-# - intent: choice_meals
-#   examples: |
-#     - choice meals
-
-# - synonym: hall_renting
-#   examples: |
-#     - make a party
-#     - make party
-#     - do party
-#     - create party
-#     - organize party
-# - synonym: cancellation_hall_renting
-#   examples: |
-#     - cancel a party
-#     - cancellation party
-#     - canceling party
-# - synonym: daily_catering
-#   examples: |
-#     - daily catering
-#     - daily food
-#     - daily dinner
-
+#     - your fault
+#     - error in contract

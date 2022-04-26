@@ -5,32 +5,32 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
-- affirm
-- booking_table
-- deny
-- give_time
-- goodbye
-- greet
-- inform_dishes
-- inform_num_people
-- name_entry
-- work_hours
-- inform_task
-- inform_reason
-- prices
-- time_to_cancel
-- available_dates
-- delivery
-- choice_meals
+  - affirm
+  - available_dates
+  - booking_table
+  - choice_meals
+  - delivery
+  - deny
+  - give_time
+  - goodbye
+  - greet
+  - inform_dishes
+  - inform_num_people
+  - inform_reason
+  - inform_task
+  - name_entry
+  - prices
+  - time_to_cancel
+  - work_hours
 
 entities:
-- num_people
-- dishes
-- pizza_size
-- pizza_type
-- name
-- task
-- reason
+  - task
+  - reason
+  - num_people
+  - dishes
+  - pizza_size
+  - pizza_type
+  - name
 
 slots:
   name:
@@ -61,17 +61,17 @@ slots:
       - type: from_intent
         intent: deny
         value: false
-  task: 
+  task:
     type: categorical
     influence_conversation: false
     values:
       - hall_renting
       - cancellation_hall_renting
       - daily_catering
-    mappings: 
+    mappings:
       - type: from_entity
         entity: task
-  reason: 
+  reason:
     type: categorical
     influence_conversation: false
     values:
@@ -82,7 +82,7 @@ slots:
       - our_fault
       - premium
       - basic
-    mappings: 
+    mappings:
       - type: from_entity
         entity: reason
   form_trigger_intent:
@@ -114,112 +114,158 @@ slots:
 forms:
   booking_table_form:
     required_slots:
-    - dishes
-    - num_people
-    - outdoor_seating
+      - dishes
+      - num_people
+      - outdoor_seating
+
   task_form:
     required_slots:
       - task
       - reason
       - form_trigger_intent
-      
+
 responses:
-  # utter_default:
-  # - text: Sorry, i do not understand
+  utter_default:
+    - text: default message
   utter_greet:
-  - text: Hey! How are you?
+    - text: Hey! How are you?
   utter_greet_with_name:
-  - text: Nice to meet you {name}
+    - text: Nice to meet you {name}
   utter_goodbye:
-  - text: Bye
+    - text: Bye
   utter_work_hours:
-  - text: I'm work between 8-16.
+    - text: I'm work between 8-16.
   utter_booking_table:
-  - text: OK. What kind of dishes do you like?
+    - text: OK. What kind of dishes do you like?
   utter_ask_num_people:
-  - text: for how many people to book a table?
+    - text: for how many people to book a table?
   utter_ask_outdoor_seating:
-  - text: could there be a table outside?
+    - text: could there be a table outside?
   utter_ask_task:
     - condition:
-        - type: slot
-          name: reason
-          value: prices
+      - type: slot
+        name: reason
+        value: prices
       text: about the cost what do you ask?
     - text: How can i help you?
       buttons:
-        - title: rent hall
-          payload: /inform_task{{"task":"hall_renting"}}
-        - title: cancellation hall renting
-          payload: /inform_task{{"task":"cancellation_hall_renting"}}
-        - title: daily catering
-          payload: /inform_task{{"task":"daily_catering"}}
+      - title: rent hall
+        payload: /inform_task{{"task":"hall_renting"}}
+      - title: cancellation hall renting
+        payload: /inform_task{{"task":"cancellation_hall_renting"}}
+      - title: daily catering
+        payload: /inform_task{{"task":"daily_catering"}}
   utter_ask_reason:
     - condition:
-        - type: slot
-          name: task
-          value: hall_renting
-      text: "We can organize:"
+      - type: slot
+        name: task
+        value: hall_renting
+      text: 'We can organize:'
       buttons:
-        - title: wedding
-          payload: /inform_reason{{"reason":"wedding"}}
-        - title: baptism
-          payload: /inform_reason{{"reason":"baptism"}}
-        - title: birthday
-          payload: /inform_reason{{"reason":"birthday"}}
+      - title: wedding
+        payload: /inform_reason{{"reason":"wedding"}}
+      - title: baptism
+        payload: /inform_reason{{"reason":"baptism"}}
+      - title: birthday
+        payload: /inform_reason{{"reason":"birthday"}}
     - condition:
-        - type: slot
-          name: task
-          value: cancellation_hall_renting
-      text: "whose fault do you want to cancel your rental?"
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      text: whose fault do you want to cancel your rental?
       buttons:
-        - title: fault_of_customer
-          payload: /inform_reason{{"reason":"fault_of_customer"}}
-        - title: our_fault
-          payload: /inform_reason{{"reason":"our_fault"}}
+      - title: fault_of_customer
+        payload: /inform_reason{{"reason":"fault_of_customer"}}
+      - title: our_fault
+        payload: /inform_reason{{"reason":"our_fault"}}
     - condition:
-        - type: slot
-          name: task
-          value: daily_catering
-      text: "which type of catering do you choose?"
+      - type: slot
+        name: task
+        value: daily_catering
+      text: which type of catering do you choose?
       buttons:
-        - title: premium
-          payload: /inform_reason{{"reason":"premium"}}
-        - title: basic
-          payload: /inform_reason{{"reason":"basic"}}
+      - title: premium
+        payload: /inform_reason{{"reason":"premium"}}
+      - title: basic
+        payload: /inform_reason{{"reason":"basic"}}
     - text: How can i help you?
-  utter_submit: 
+  utter_task_submit:
     - condition:
-        - type: slot
-          name: form_trigger_intent
-          value: "prices"
-        - type: slot
-          name: task
-          value: "hall_renting"
-        - type: slot
-          name: reason
-          value: "wedding"
-      text: "price is 10000$"
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: wedding
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: price is 10000$
     - condition:
-        - type: slot
-          name: form_trigger_intent
-          value: "available_dates"
-        - type: slot
-          name: task
-          value: "hall_renting"
-        - type: slot
-          name: reason
-          value: "wedding"
-      text: "We have free date after two years."
-
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: wedding
+      - type: slot
+        name: form_trigger_intent
+        value: available_dates
+      text: We have free date for wedding in two years.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: baptism
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: The cost is just 4000$.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: baptism
+      - type: slot
+        name: form_trigger_intent
+        value: available_dates
+      text: We have free date for baptism in next month.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: birthday
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: The cost is just 1500$.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: birthday
+      - type: slot
+        name: form_trigger_intent
+        value: available_dates
+      text: We have free date for birthday in half a year.
+    - text: "My error: not all slot filled"
 
 actions:
-- action_show_time
-- submit_booking_table_form
-- utter_booking_table
-- utter_goodbye
-- utter_greet
-- utter_work_hours
-- validate_booking_table_form
-- utter_submit
-- display_trigger_buttons
+  - action_show_time
+  - display_trigger_buttons
+  - submit_booking_table_form
+  - utter_ask_reason
+  - utter_booking_table
+  - utter_goodbye
+  - utter_greet
+  - utter_task_submit
+  - utter_work_hours
+  - validate_booking_table_form

@@ -83,14 +83,11 @@ class DisplayTriggerButtons(Action):
         self,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
-        domain: list
+        domain: Dict[Text, Any]
     ):
-        dispatcher.utter_message(text="what you want to know?")
+        dispatcher.utter_message(text="what do you want to know?")
+        
         dispatcher.utter_message(buttons=[
             {"payload": "/prices", "title": "about prices"},
             {"payload": "/available_dates", "title": "about available dates"}
         ])
-
-        # dispatcher.utter_message(text="czy czeka?")
-        # return []
-        # dispatcher.utter_message(response="utter_submit")

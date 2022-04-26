@@ -41,3 +41,22 @@ version: "3.1"
     - requested_slot: null
   - active_loop: null
   - action: submit_booking_table_form
+
+- story: Dialog_1
+  steps:
+  - intent: inform_task
+    entities:
+    - task: hall_renting
+  - slot_was_set:
+    - task: hall_renting
+  - action: utter_ask_reason
+  - intent: inform_reason
+    entities:
+    - reason: wedding
+  - slot_was_set:
+    - reason: wedding
+  - action: display_trigger_buttons
+  - intent: prices
+  - slot_was_set:
+    - form_trigger_intent: prices
+  - action: utter_task_submit

@@ -43,13 +43,22 @@ rules:
     - requested_slot: null
   - action: submit_booking_table_form
 
-- rule: Dialog cz 1
+- rule: inform_task rule 
   steps:
-   - intent: inform_task
-   - action: utter_ask_reason
+  - intent: inform_task
+  - action: utter_ask_reason
 
-- rule: Dialog cz 2
+- rule: inform_reason rule
   steps:
-   - intent: inform_reason
-   - action: display_trigger_buttons
-   - action: utter_submit
+  - intent: inform_reason
+  - action: display_trigger_buttons
+
+- rule: dialog prices
+  steps:
+  - intent: prices
+  - action: utter_task_submit
+
+- rule: dialog available_dates
+  steps:
+  - intent: available_dates
+  - action: utter_task_submit
