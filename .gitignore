@@ -2,5 +2,5 @@ venv
 .rasa
 models
 actions
-.dot
+story_graph.dot
 __pycache__
