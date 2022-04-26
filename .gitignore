@@ -1,4 +1,6 @@
 venv
 .rasa
 models
+actions
 .dot
+__pycache__
