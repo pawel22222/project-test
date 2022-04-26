@@ -62,3 +62,18 @@ rules:
   steps:
   - intent: available_dates
   - action: utter_task_submit
+  
+- rule: dialog time_to_cancel
+  steps:
+  - intent: time_to_cancel
+  - action: utter_task_submit
+  
+- rule: dialog delivery 
+  steps:
+  - intent: delivery
+  - action: utter_task_submit
+  
+- rule: dialog meals 
+  steps:
+  - intent: meals
+  - action: utter_task_submit

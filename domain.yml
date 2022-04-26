@@ -8,7 +8,7 @@ intents:
   - affirm
   - available_dates
   - booking_table
-  - choice_meals
+  - meals
   - delivery
   - deny
   - give_time
@@ -93,7 +93,7 @@ slots:
       - available_dates
       - time_to_cancel
       - delivery
-      - choice_meals
+      - meals
     mappings:
       - type: from_trigger_intent
         value: prices
@@ -108,8 +108,8 @@ slots:
         value: delivery
         intent: delivery
       - type: from_trigger_intent
-        value: choice_meals
-        intent: choice_meals
+        value: meals
+        intent: meals
 
 forms:
   booking_table_form:
@@ -256,6 +256,102 @@ responses:
         name: form_trigger_intent
         value: available_dates
       text: We have free date for birthday in half a year.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: fault_of_customer
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: Cancellation from renting hall due to customer's fault costs 10% of the price.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: fault_of_customer
+      - type: slot
+        name: form_trigger_intent
+        value: time_to_cancel
+      text: Cancellation from renting hall due to customer's fault is available at least a month earlier.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: our_fault
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: In the case of resignation from renting the hall due to our fault, we will refund you twice the advance payment.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: our_fault
+      - type: slot
+        name: form_trigger_intent
+        value: time_to_cancel
+      text: We can resign from renting the hall not later than six months before.
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: basic
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: Cost basic catering is 200$ monthly.
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: basic
+      - type: slot
+        name: form_trigger_intent
+        value: meals
+      text: "For basic catering we provide 1 meal daily"
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: premium
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: Cost basic catering is 320$ monthly.
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: premium
+      - type: slot
+        name: form_trigger_intent
+        value: meals
+      text: "For premium catering we provide 3 meal daily"
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: form_trigger_intent
+        value: delivery
+      text: "We deliver basic and premium catering every day at 6 AM and 6 PM"
     - text: "My error: not all slot filled"
 
 actions:
