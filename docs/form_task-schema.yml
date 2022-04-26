@@ -1,7 +1,30 @@
 # Schema of task_form
-## na końcu każdej ze ścieżek formularza, odpowiedź 'utter_submit' zwraca inną odpowiedź dla każdego zakończenia
-## jedynym wyjątkem jest: daily_catering -> premium/basic zwracają tą samą odpowiedź
+# na końcu każdej ze ścieżek formularza, odpowiedź 'utter_submit' zwraca inną odpowiedź dla każdego zakończenia
+# jedynym wyjątkem jest: daily_catering -> premium/basic zwracają tą samą odpowiedź
 
+
+## wszystkie aktywności
+tasks:
+  - hall_renting
+  - cancellation_hall_renting
+  - daily_catering
+response: 
+  - wedding
+  - baptism 
+  - birthday
+  - fault_of_customer
+  - our_fault
+  - premium
+  - basic
+form_trigger_intent:
+  - prices
+  - available_dates
+  - time_to_cancel
+  - delivery
+  - meals
+
+
+## Ścieżki formularza
 hall_renting:
   wedding:
     - prices
