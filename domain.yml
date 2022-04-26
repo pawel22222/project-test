@@ -5,82 +5,363 @@ session_config:
   carry_over_slots_to_new_session: true
 
 intents:
-- affirm
-- booking_table
-- deny
-- give_time
-- goodbye
-- greet
-- inform_dishes
-- inform_num_people
-- name_entry
-- work_hours
+  - affirm
+  - available_dates
+  - booking_table
+  - meals
+  - delivery
+  - deny
+  - give_time
+  - goodbye
+  - greet
+  - inform_dishes
+  - inform_num_people
+  - inform_reason
+  - inform_task
+  - name_entry
+  - prices
+  - time_to_cancel
+  - work_hours
 
 entities:
-- num_people
-- dishes
-- pizza_size
-- pizza_type
-- name
+  - task
+  - reason
+  - num_people
+  - dishes
+  - pizza_size
+  - pizza_type
+  - name
 
 slots:
   name:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: name
+      - type: from_entity
+        entity: name
   dishes:
     type: list
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: dishes
+      - type: from_entity
+        entity: dishes
   num_people:
     type: text
     influence_conversation: true
     mappings:
-    - type: from_entity
-      entity: num_people
+      - type: from_entity
+        entity: num_people
   outdoor_seating:
     type: bool
     influence_conversation: true
     mappings:
-    - type: from_intent
-      intent: affirm
-      value: true
-    - type: from_intent
-      intent: deny
-      value: false
+      - type: from_intent
+        intent: affirm
+        value: true
+      - type: from_intent
+        intent: deny
+        value: false
+  task:
+    type: categorical
+    influence_conversation: false
+    values:
+      - hall_renting
+      - cancellation_hall_renting
+      - daily_catering
+    mappings:
+      - type: from_entity
+        entity: task
+  reason:
+    type: categorical
+    influence_conversation: false
+    values:
+      - wedding
+      - baptism
+      - birthday
+      - fault_of_customer
+      - our_fault
+      - premium
+      - basic
+    mappings:
+      - type: from_entity
+        entity: reason
+  form_trigger_intent:
+    type: categorical
+    influence_conversation: false
+    values:
+      - prices
+      - available_dates
+      - time_to_cancel
+      - delivery
+      - meals
+    mappings:
+      - type: from_trigger_intent
+        value: prices
+        intent: prices
+      - type: from_trigger_intent
+        value: available_dates
+        intent: available_dates
+      - type: from_trigger_intent
+        value: time_to_cancel
+        intent: time_to_cancel
+      - type: from_trigger_intent
+        value: delivery
+        intent: delivery
+      - type: from_trigger_intent
+        value: meals
+        intent: meals
 
 forms:
   booking_table_form:
     required_slots:
-    - dishes
-    - num_people
-    - outdoor_seating
+      - dishes
+      - num_people
+      - outdoor_seating
+
+  task_form:
+    required_slots:
+      - task
+      - reason
+      - form_trigger_intent
 
 responses:
+  utter_default:
+    - text: default message
   utter_greet:
-  - text: Hey! How are you?
+    - text: Hey! How are you?
   utter_greet_with_name:
-  - text: Nice to meet you {name}
+    - text: Nice to meet you {name}
   utter_goodbye:
-  - text: Bye
+    - text: Bye
   utter_work_hours:
-  - text: I'm work between 8-16.
+    - text: I'm work between 8-16.
   utter_booking_table:
-  - text: OK. What kind of dishes do you like?
+    - text: OK. What kind of dishes do you like?
   utter_ask_num_people:
-  - text: for how many people to book a table?
+    - text: for how many people to book a table?
   utter_ask_outdoor_seating:
-  - text: could there be a table outside?
+    - text: could there be a table outside?
+  utter_ask_task:
+    - condition:
+      - type: slot
+        name: reason
+        value: prices
+      text: about the cost what do you ask?
+    - text: How can i help you?
+      buttons:
+      - title: rent hall
+        payload: /inform_task{{"task":"hall_renting"}}
+      - title: cancellation hall renting
+        payload: /inform_task{{"task":"cancellation_hall_renting"}}
+      - title: daily catering
+        payload: /inform_task{{"task":"daily_catering"}}
+  utter_ask_reason:
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      text: 'We can organize:'
+      buttons:
+      - title: wedding
+        payload: /inform_reason{{"reason":"wedding"}}
+      - title: baptism
+        payload: /inform_reason{{"reason":"baptism"}}
+      - title: birthday
+        payload: /inform_reason{{"reason":"birthday"}}
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      text: whose fault do you want to cancel your rental?
+      buttons:
+      - title: fault_of_customer
+        payload: /inform_reason{{"reason":"fault_of_customer"}}
+      - title: our_fault
+        payload: /inform_reason{{"reason":"our_fault"}}
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      text: which type of catering do you choose?
+      buttons:
+      - title: premium
+        payload: /inform_reason{{"reason":"premium"}}
+      - title: basic
+        payload: /inform_reason{{"reason":"basic"}}
+    - text: How can i help you?
+  utter_task_submit:
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: wedding
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: price is 10000$
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: wedding
+      - type: slot
+        name: form_trigger_intent
+        value: available_dates
+      text: We have free date for wedding in two years.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: baptism
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: The cost is just 4000$.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: baptism
+      - type: slot
+        name: form_trigger_intent
+        value: available_dates
+      text: We have free date for baptism in next month.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: birthday
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: The cost is just 1500$.
+    - condition:
+      - type: slot
+        name: task
+        value: hall_renting
+      - type: slot
+        name: reason
+        value: birthday
+      - type: slot
+        name: form_trigger_intent
+        value: available_dates
+      text: We have free date for birthday in half a year.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: fault_of_customer
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: Cancellation from renting hall due to customer's fault costs 10% of the price.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: fault_of_customer
+      - type: slot
+        name: form_trigger_intent
+        value: time_to_cancel
+      text: Cancellation from renting hall due to customer's fault is available at least a month earlier.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: our_fault
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: In the case of resignation from renting the hall due to our fault, we will refund you twice the advance payment.
+    - condition:
+      - type: slot
+        name: task
+        value: cancellation_hall_renting
+      - type: slot
+        name: reason
+        value: our_fault
+      - type: slot
+        name: form_trigger_intent
+        value: time_to_cancel
+      text: We can resign from renting the hall not later than six months before.
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: basic
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: Cost basic catering is 200$ monthly.
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: basic
+      - type: slot
+        name: form_trigger_intent
+        value: meals
+      text: "For basic catering we provide 1 meal daily"
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: premium
+      - type: slot
+        name: form_trigger_intent
+        value: prices
+      text: Cost basic catering is 320$ monthly.
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: reason
+        value: premium
+      - type: slot
+        name: form_trigger_intent
+        value: meals
+      text: "For premium catering we provide 3 meal daily"
+    - condition:
+      - type: slot
+        name: task
+        value: daily_catering
+      - type: slot
+        name: form_trigger_intent
+        value: delivery
+      text: "We deliver basic and premium catering every day at 6 AM and 6 PM"
+    - text: "My error: not all slot filled"
 
 actions:
-- action_show_time
-- submit_booking_table_form
-- utter_booking_table
-- utter_goodbye
-- utter_greet
-- utter_work_hours
-- validate_booking_table_form
+  - action_show_time
+  - display_trigger_buttons
+  - submit_booking_table_form
+  - utter_ask_reason
+  - utter_booking_table
+  - utter_goodbye
+  - utter_greet
+  - utter_task_submit
+  - utter_work_hours
+  - validate_booking_table_form

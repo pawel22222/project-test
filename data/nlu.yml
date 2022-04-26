@@ -1,5 +1,4 @@
 version: "3.1"
-
 nlu:
 - intent: greet
   examples: |
@@ -65,3 +64,47 @@ nlu:
     - my name is [Pawel sokolowski](name)
     - i am [Michal](name)
     - i am [Michal kowalski](name)
+- intent: inform_task
+  examples: |
+    - [rent hall]{"entity": "task", "value": "hall_renting"}
+    - [rent]{"entity": "task", "value": "hall_renting"}
+    - [make party]{"entity": "task", "value": "hall_renting"}
+    - [rent hall]{"entity": "task", "value": "hall_renting"} for a [wedding](reason)
+    - [rent]{"entity": "task", "value": "hall_renting"} [wedding](reason) hall
+    - make [birthday](reason) [party]{"entity": "task", "value": "hall_renting"}
+    - [cancel]{"entity": "task", "value": "cancellation_hall_renting"}
+    - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"}
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"}
+    - [cancel]{"entity": "task", "value": "cancellation_hall_renting"} party
+    - [cancellation]{"entity": "task", "value": "cancellation_hall_renting"} [wedding](reason)
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [birthday](reason)
+    - [canceling]{"entity": "task", "value": "cancellation_hall_renting"} [baptism](reason)
+    - [catering]{"entity": "task", "value": "daily_catering"}
+    - [daily catering]{"entity": "task", "value": "daily_catering"}
+    - [rent hall]{"entity": "task", "value": "hall_renting"}
+# - intent: inform_reason
+#   examples: |
+#     - [wedding](reason)
+#     - [birthday](reason)
+#     - [baptism](reason)
+#     - [my fault]{"entity": "reason", "value": "fault_of_customer"}
+#     - [change date]{"entity": "reason", "value": "fault_of_customer"}
+#     - [your fault]{"entity": "reason", "value": "our_fault"}
+#     - [error in contract]{"entity": "reason", "value": "our_fault"}
+#     - [premium](reason)
+#     - [basic](reason)
+- synonym: hall_renting
+  examples: |
+    - rent hall
+    - rent
+    - make party
+    - party
+- synonym: cancellation_hall_renting
+  examples: |
+    - cancel
+    - cancellation
+    - canceling
+- synonym: daily_catering
+  examples: |
+    - catering
+    - daily catering

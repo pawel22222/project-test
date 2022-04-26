@@ -73,3 +73,38 @@ class SubmitBookingTableForm(Action):
 
         dispatcher.utter_message(
             text=f"OK! You want {table_type} table for {tracker.get_slot('num_people')} people and you ordered {dishes}")
+
+
+class DisplayTriggerButtons(Action):
+    def name(self) -> Text:
+        return "display_trigger_buttons"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ):
+        task = tracker.get_slot("task")
+        reason = tracker.get_slot("reason")
+
+        dispatcher.utter_message(text="what do you want to know?")
+
+        if task == 'hall_renting':
+            dispatcher.utter_message(buttons=[
+                {"payload": "/prices", "title": f"price of {reason}"},
+                {"payload": "/available_dates", "title": f"{reason} dates available"},
+            ])
+
+        if task == 'cancellation_hall_renting':
+            dispatcher.utter_message(buttons=[
+                {"payload": "/prices", "title": "cancellation costs"},
+                {"payload": "/time_to_cancel", "title": "time to cancel"}
+            ])
+            
+        if task == 'daily_catering':
+            dispatcher.utter_message(buttons=[
+                {"payload": "/prices", "title": f"price of {reason} catering"},
+                {"payload": "/delivery", "title": "delivery"},
+                {"payload": "/meals", "title": f"{reason} meals"}
+            ])

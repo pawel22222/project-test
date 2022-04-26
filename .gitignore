@@ -1,4 +1,5 @@
 venv
 .rasa
 models
-.dot
+story_graph.dot
+__pycache__
