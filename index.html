@@ -1,0 +1,34 @@
+<html>
+  <body>
+    <h1>Try it out</h1>
+    <ul>
+        <li>book table - activate booking table form</li>
+        <li>rent - first node of response form about renting hall</li>
+        <li>cancel - first node of response form about canceling hall</li>
+        <li>catering - first node of response form about daily catering</li>
+    </ul>
+
+
+    <script>!(function () {
+        let e = document.createElement("script"),
+          t = document.head || document.getElementsByTagName("head")[0];
+        (e.src =
+          "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
+          (e.async = !0),
+          (e.onload = () => {
+            window.WebChat.default(
+              {
+                initPayload: "/greet",
+                customData: { language: "en" },
+                socketUrl: "http://localhost:5005",
+                title: "Restaurant"
+              },
+              null
+            );
+          }),
+          t.insertBefore(e, t.firstChild);
+      })();
+      </script>
+
+  </body>
+</html>
