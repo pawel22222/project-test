@@ -88,23 +88,28 @@ class DisplayTriggerButtons(Action):
         task = tracker.get_slot("task")
         reason = tracker.get_slot("reason")
 
-        dispatcher.utter_message(text="what do you want to know?")
+        def get_buttons():
+            if task == 'hall_renting':
+                return [
+                    {"payload": "/prices", "title": f"price of {reason}"},
+                    {"payload": "/available_dates", "title": f"{reason} dates available"},
+                ]
 
-        if task == 'hall_renting':
-            dispatcher.utter_message(buttons=[
-                {"payload": "/prices", "title": f"price of {reason}"},
-                {"payload": "/available_dates", "title": f"{reason} dates available"},
-            ])
+            if task == 'cancellation_hall_renting':
+                return [
+                    {"payload": "/prices", "title": "cancellation costs"},
+                    {"payload": "/time_to_cancel", "title": "time to cancel"}
+                ]
+                
+            if task == 'daily_catering':
+                return [
+                    {"payload": "/prices", "title": f"price of {reason} catering"},
+                    {"payload": "/delivery", "title": "delivery"},
+                    {"payload": "/meals", "title": f"{reason} meals"}
+                ]
 
-        if task == 'cancellation_hall_renting':
-            dispatcher.utter_message(buttons=[
-                {"payload": "/prices", "title": "cancellation costs"},
-                {"payload": "/time_to_cancel", "title": "time to cancel"}
-            ])
-            
-        if task == 'daily_catering':
-            dispatcher.utter_message(buttons=[
-                {"payload": "/prices", "title": f"price of {reason} catering"},
-                {"payload": "/delivery", "title": "delivery"},
-                {"payload": "/meals", "title": f"{reason} meals"}
-            ])
+
+        dispatcher.utter_message(
+            text="what do you want to know?",
+            buttons=get_buttons()
+        )
