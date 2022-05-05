@@ -82,17 +82,6 @@ nlu:
     - [catering]{"entity": "task", "value": "daily_catering"}
     - [daily catering]{"entity": "task", "value": "daily_catering"}
     - [rent hall]{"entity": "task", "value": "hall_renting"}
-# - intent: inform_reason
-#   examples: |
-#     - [wedding](reason)
-#     - [birthday](reason)
-#     - [baptism](reason)
-#     - [my fault]{"entity": "reason", "value": "fault_of_customer"}
-#     - [change date]{"entity": "reason", "value": "fault_of_customer"}
-#     - [your fault]{"entity": "reason", "value": "our_fault"}
-#     - [error in contract]{"entity": "reason", "value": "our_fault"}
-#     - [premium](reason)
-#     - [basic](reason)
 - synonym: hall_renting
   examples: |
     - rent hall
