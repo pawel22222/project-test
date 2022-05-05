@@ -1,3 +1,4 @@
+import types
 from typing import Text, List, Any, Dict
 import datetime as dt
 
@@ -54,6 +55,20 @@ class ValidateBookingTableForm(FormValidationAction):
         else:
             dispatcher.utter_message(text=f"I don't understand. can you choose number from 1 to 15?")
             return {"num_people": None}
+    
+
+    def validate_outdoor_seating(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> Dict[Text, Any]:
+        if isinstance(slot_value, types.BooleanType):
+            return {"outdoor_seating": slot_value}
+        else:
+            return {"outdoor_seating": None}
+
 
 class SubmitBookingTableForm(Action):
     def name(self) -> Text:
