@@ -6,7 +6,7 @@
 - pip install -r requirements.txt
 - python -m venv /path/to/new/virtual/environment
 - path_to_virtualenv/Scripts/activate
-- rasa run activate
+- rasa run actions
 - rasa train
 - rasa shell
 
